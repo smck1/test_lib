@@ -3,8 +3,7 @@ The :mod:`phaser.hashing` module includes various utilities.
 """
 
 from .algorithms import (
-    PHASH, 
-    CropResistantHash,
+    PHASH,
     ColourHash,
     WaveHash,
     PdqHash,
