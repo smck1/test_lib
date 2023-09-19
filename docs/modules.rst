@@ -1,8 +1,8 @@
-source
+phaser
 ======
 
 .. toctree::
    :maxdepth: 4
-
-   my_functions
-   run
+   :caption: My Custom Document Name
+   
+   phaser

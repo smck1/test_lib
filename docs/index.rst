@@ -1,15 +1,16 @@
-.. MyFooLibrary documentation master file, created by
-   sphinx-quickstart on Mon Sep 18 14:21:08 2023.
+.. aaa documentation master file, created by
+   sphinx-quickstart on Tue Sep 19 17:45:40 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to MyFooLibrary's documentation!
-========================================
+Welcome to phasers's documentation!
+===================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   example
    modules
 
 Indices and tables
