@@ -1,6 +1,7 @@
 import os
 from PIL import Image
 import numpy as np
+from joblib import dump, load
 
 class ImageLoader():
     def __init__(self, path:str):
@@ -22,3 +23,24 @@ def bool2binstring(hash):
     if hash.dtype == 'bool':
         hash = np.array(hash, dtype=int)
     return "".join(str(b) for b in hash)
+
+def bin2bool(hash):
+    # Create an iterable of booleans by converting each character in the string to a boolean value
+    bool_iterable = (bit == '1' for bit in hash)
+
+    # Convert the iterable to a NumPy boolean array
+    bool_array = np.fromiter(bool_iterable, dtype=np.bool_)
+
+    return bool_array
+
+def dump_labelencoders(encoders:dict) -> None:
+    for name,enc in encoders.items():
+        dump(enc,f"{name}.bz2", compress=9)
+
+def load_labelencoders(filenames:list):
+    encoder_dict = {}
+
+    for f in filenames:
+        encoder_dict[f] = load(f"./{f}.bz2")
+
+    return encoder_dict
