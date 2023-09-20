@@ -81,25 +81,6 @@ class PdqHash():
         binary_hash = bool2binstring(flat_hash)
         return binary_hash
    
-def _sim_hashing(img_path, transformations=[], algorithms={}):
-    image_obj = ImageLoader(img_path)
-    img = deepcopy(image_obj)
-
-    outputs = []
-
-    # loop over a set of algorithms
-    hashes = [a.fit(img.image) for a in algorithms.values()]
-    outputs.append([img.filename, 'orig', *hashes])
-    
-    if len(transformations) > 0:
-        for transform in transformations:
-            _img = transform.fit(img)
-
-            hashes = [a.fit(_img) for a in algorithms.values()]
-            outputs.append([img.filename, transform.aug_name, *hashes])
-    
-    return np.row_stack(outputs)
-
 class ComputeHashes():
     """Compute Perceptual Hashes using a defined dictionary of algorithms, \\
         and a corresponding list for transformations to be applies
@@ -130,7 +111,7 @@ class ComputeHashes():
         hashes = Parallel(
              n_jobs=self.n_jobs,
              backend=self.backend
-             )(delayed(_sim_hashing)(
+             )(delayed(sim_hashing)(
             img_path=p,
             algorithms=self.algos,
             transformations=self.trans
@@ -146,3 +127,22 @@ class ComputeHashes():
         df = pd.DataFrame(hashes, columns=cols)
         
         return df
+
+def sim_hashing(img_path, transformations=[], algorithms={}):
+    image_obj = ImageLoader(img_path)
+    img = deepcopy(image_obj)
+
+    outputs = []
+
+    # loop over a set of algorithms
+    hashes = [a.fit(img.image) for a in algorithms.values()]
+    outputs.append([img.filename, 'orig', *hashes])
+    
+    if len(transformations) > 0:
+        for transform in transformations:
+            _img = transform.fit(img)
+
+            hashes = [a.fit(_img) for a in algorithms.values()]
+            outputs.append([img.filename, transform.aug_name, *hashes])
+    
+    return np.row_stack(outputs)

@@ -1,9 +1,15 @@
 """
-The :mod:`phaser.similarities` module includes various utilities.
+The :mod:`phaser.similarities` module includes various ...
 """
 
-from .distances import (
+from ._distances import (
     find_inter_samplesize,
     IntraDistance,
     InterDistance
 )
+
+__all__ = [
+    "IntraDistance",
+    "InterDistance",
+    "find_inter_samplesize"
+]

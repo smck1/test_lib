@@ -1,10 +1,10 @@
-phaser.utils package
-====================
+phaser.plotting package
+=======================
 
 Module contents
 ---------------
 
-.. automodule:: phaser.utils
+.. automodule:: phaser.plotting
    :members:
    :undoc-members:
    :show-inheritance:

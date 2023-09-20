@@ -1,5 +1,5 @@
 """
-The :mod:`phaser.transformers` module includes various utilities.
+The :mod:`phaser.transformers` module includes various ...
 """
 
 from ._transforms import (

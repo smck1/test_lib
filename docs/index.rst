@@ -6,6 +6,12 @@
 Welcome to phasers's documentation!
 ===================================
 
+This library is developed as part of the publication XXX submitted to YYY
+
+If you find the library useful for your research, please consider citing our paper
+
+- Insert bibtex references.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

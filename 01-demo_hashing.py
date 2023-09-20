@@ -1,4 +1,5 @@
 import pathlib, os
+pathlib.Path("./demo_outputs").mkdir(exist_ok=True)
 
 from phaser.utils import ImageLoader as IL
 from phaser.utils import dump_labelencoders
@@ -45,9 +46,9 @@ df['filename'] = le_f.transform(df['filename'])
 df['transformation'] = le_t.transform(df['transformation'])
 
 # Dump LabelEncoders to disk for use in analysis
-dump_labelencoders({'le_f':le_f,'le_a':le_a,'le_t':le_t})
+dump_labelencoders({'le_f':le_f,'le_a':le_a,'le_t':le_t}, path="./demo_outputs/")
 
 # Dump the dataset
 print(f"{os.getcwd()=}")
 compression_opts = dict(method='bz2', compresslevel=9)
-df.to_csv("hashes.csv.bz2", index=False, encoding='utf-8', compression=compression_opts)
+df.to_csv("./demo_outputs/hashes.csv.bz2", index=False, encoding='utf-8', compression=compression_opts)

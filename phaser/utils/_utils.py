@@ -33,14 +33,14 @@ def bin2bool(hash):
 
     return bool_array
 
-def dump_labelencoders(encoders:dict) -> None:
+def dump_labelencoders(encoders:dict, path:str) -> None:
     for name,enc in encoders.items():
-        dump(enc,f"{name}.bz2", compress=9)
+        dump(enc,f"{path}{name}.bz2", compress=9)
 
-def load_labelencoders(filenames:list):
+def load_labelencoders(filenames:list, path:str):
     encoder_dict = {}
 
     for f in filenames:
-        encoder_dict[f] = load(f"./{f}.bz2")
+        encoder_dict[f] = load(f"./{path}{f}.bz2")
 
     return encoder_dict

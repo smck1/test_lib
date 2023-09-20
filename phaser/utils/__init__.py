@@ -2,7 +2,7 @@
 The :mod:`phaser.utils` module includes various utilities.
 """
 
-from .helper_funcs import (
+from ._utils import (
     ImageLoader, 
     bool2binstring,
     bin2bool,

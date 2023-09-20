@@ -3,11 +3,10 @@ from sklearn.preprocessing import LabelEncoder
 from phaser.utils import dump_labelencoders, load_labelencoders, bin2bool
 
 # Read the precomputed hashes
-df = pd.read_csv("./hashes.csv.bz2")
-print(df.head())
+df = pd.read_csv("./demo_outputs/hashes.csv.bz2")
 
 # Load the Label Encoders used when generating hashes
-label_encoders = load_labelencoders(['le_f','le_a','le_t'])
+label_encoders = load_labelencoders(['le_f','le_a','le_t'], path="./demo_outputs/")
 le_f, le_a, le_t = label_encoders.values()
 
 # Get the unique values and set constants
@@ -28,7 +27,7 @@ METRICS = ['hamming','cosine']
 le_m = LabelEncoder().fit(METRICS)
 
 # Dump metric LabelEncoder
-dump_labelencoders({'le_m':le_m})
+dump_labelencoders({'le_m':le_m}, path="./demo_outputs/")
 
 # Compute the intra distances
 from phaser.similarities import find_inter_samplesize, IntraDistance, InterDistance
@@ -48,4 +47,4 @@ print(f"Number of inter distances = {len(inter_df)}")
 # Combine distances and save to disk
 dist_df = pd.concat([intra_df,inter_df])
 compression_opts = dict(method='bz2', compresslevel=9)
-dist_df.to_csv("distances.csv.bz2", index=False, encoding='utf-8', compression=compression_opts)
+dist_df.to_csv("./demo_outputs/distances.csv.bz2", index=False, encoding='utf-8', compression=compression_opts)

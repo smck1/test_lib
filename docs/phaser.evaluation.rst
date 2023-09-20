@@ -1,10 +1,10 @@
-phaser.utils package
-====================
+phaser.evaluation package
+=========================
 
 Module contents
 ---------------
 
-.. automodule:: phaser.utils
+.. automodule:: phaser.evaluation
    :members:
    :undoc-members:
    :show-inheritance:
