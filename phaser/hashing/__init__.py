@@ -2,7 +2,7 @@
 The :mod:`phaser.hashing` module includes various utilities.
 """
 
-from .algorithms import (
+from ._algorithms import (
     PHASH,
     ColourHash,
     WaveHash,

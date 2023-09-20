@@ -101,13 +101,32 @@ def _sim_hashing(img_path, transformations=[], algorithms={}):
     return np.row_stack(outputs)
 
 class ComputeHashes():
+    """Compute Perceptual Hashes using a defined dictionary of algorithms, \\
+        and a corresponding list for transformations to be applies
+    """
     def __init__(self, algorithms:dict, transformations:list, n_jobs=1, backend='loky') -> None:
+        """_summary_
+
+        Args:
+            algorithms (dict): Dictionary containing {'phash': phaser.hashing.PHASH(<settings>)}
+            transformations (list): A list of transformations to be applies [phaser.transformers.Flip(<setting>)]
+            n_jobs (int, optional): How many CPU cores to use. -1 uses all resources. Defaults to 1.
+            backend (str, optional): Pass backend parameter to joblib. Defaults to 'loky'.
+        """
         self.algos = algorithms
         self.trans = transformations
         self.n_jobs = n_jobs
         self.backend = backend
 
-    def fit(self, paths) -> pd.DataFrame:
+    def fit(self, paths:list) -> pd.DataFrame:
+        """Run the computation
+
+        Args:
+            paths (list): A list of absolute paths to original images 
+
+        Returns:
+            pd.DataFrame: Dataset containing all computations
+        """
         hashes = Parallel(
              n_jobs=self.n_jobs,
              backend=self.backend
