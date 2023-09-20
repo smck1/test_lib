@@ -16,7 +16,13 @@ release = '1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.autodoc"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+
+autodoc_default_options = {
+    "members": True,
+    "undoc-members": True, # Also generate document for the members not having docstrings
+    "private-members": False 
+}
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

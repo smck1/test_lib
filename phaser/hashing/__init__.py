@@ -1,5 +1,10 @@
 """
 The :mod:`phaser.hashing` module includes various utilities.
+
+H1 inside module contents
+=========================
+Add some important text here to describe or link to examples.
+
 """
 
 from ._algorithms import (
@@ -10,4 +15,8 @@ from ._algorithms import (
     ComputeHashes
 )
 
-#__all__ = ["PHASH"]
+# Include names of private functions to autodoc
+__all__ = [
+    "PHASH",
+    "ComputeHashes"
+    ]

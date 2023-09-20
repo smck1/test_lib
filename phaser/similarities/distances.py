@@ -12,6 +12,22 @@ def find_inter_samplesize(num_images) -> int:
 # DISTANCE COMPUTATION
 class IntraDistance():
     def __init__(self, le_t, le_m, le_a, set_class=0):
+        """_summary_
+
+        Parameters
+        ----------
+        le_t : sklearn.preprocessing.LabelEncoder
+            _description_
+        
+        le_m : sklearn.preprocessing.LabelEncoder
+            _description_
+        
+        le_a : sklearn.preprocessing.LabelEncoder
+            _description_
+
+        set_class : int, optional
+            _description_, by default 0
+        """
         self.le_t = le_t
         self.le_m = le_m
         self.le_a = le_a

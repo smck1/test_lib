@@ -1,17 +1,6 @@
 phaser.hashing package
 ======================
 
-Submodules
-----------
-
-phaser.hashing.algorithms module
---------------------------------
-
-.. automodule:: phaser.hashing.algorithms
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

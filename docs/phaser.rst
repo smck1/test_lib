@@ -8,6 +8,8 @@ Subpackages
    :maxdepth: 4
 
    phaser.hashing
+   phaser.similarities
+   phaser.transformers
    phaser.utils
 
     
