@@ -8,7 +8,6 @@ from joblib import Parallel, delayed
 # Local imports from ..utils
 from ..utils import ImageLoader, bool2binstring
 
-# HASHING FUNCTIONS
 class PHASH():
     def __init__(self, hash_size=8, highfreq_factor=4):
         self.hash_size=hash_size
@@ -113,8 +112,8 @@ class ComputeHashes():
              n_jobs=self.n_jobs,
              backend=self.backend
              )(delayed(_sim_hashing)(
-            img_path=p, # TODO: -> load image in simhasher to cater for diff transform ... load the image from path p
-            algorithms=self.algos, # pass the dict with hashing algorithms
+            img_path=p,
+            algorithms=self.algos,
             transformations=self.trans
             ) for p in paths)
         
