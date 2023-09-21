@@ -2,13 +2,28 @@ import imagehash
 import pdqhash
 import numpy as np
 from copy import deepcopy
-import pandas as pd
 from joblib import Parallel, delayed
+from abc import ABC, abstractmethod
+import pandas as pd
+
 
 # Local imports from ..utils
 from ..utils import ImageLoader, bool2binstring
 
-class PHASH():
+
+class PerceptualHash(ABC):
+    
+    @abstractmethod
+    def __init__(self):
+        """ Function to initialise the hash function, pass in any parameters here."""
+        pass
+
+    @abstractmethod
+    def fit(self):
+        """ Function that takes in an image and returns a hash digest as a bit string."""
+        pass
+
+class PHASH(PerceptualHash):
     def __init__(self, hash_size=8, highfreq_factor=4):
         self.hash_size=hash_size
         self.highfreq_factor = highfreq_factor
@@ -26,7 +41,7 @@ class PHASH():
         binary_hash = bool2binstring(hash)
         return binary_hash
         
-class ColourHash():
+class ColourHash(PerceptualHash):
     def __init__(self, binbits=3) -> None:
         self.binbits = binbits
 
@@ -40,7 +55,7 @@ class ColourHash():
         binary_hash = bool2binstring(flat_hash)
         return binary_hash
     
-class WaveHash():
+class WaveHash(PerceptualHash):
     def __init__(
             self, 
             hash_size = 8,
@@ -66,7 +81,7 @@ class WaveHash():
         binary_hash = bool2binstring(flat_hash)
         return binary_hash
 
-class PdqHash():
+class PdqHash(PerceptualHash):
     def __init__(self) -> None:
         pass
 

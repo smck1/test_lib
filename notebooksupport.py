@@ -10,11 +10,29 @@ from sklearn.preprocessing import LabelEncoder
 from inspect import getmembers, isfunction
 import phaser
 
-def list_modules():
-    hashes = [name for name in dir(phaser.hashing) if "_" not in name]
-    hashes.remove("ComputeHashes")
+def list_modular_components():
 
-    transformers = [name for name in dir(phaser.transformers) if "_" not in name]
+    # Get hashes - checks each item in phaser.hashing._algorithms and checks to see if the class is a subclass
+    # of the abstract class PerceptualHash. If it is, include it in the list of hashes.
+    hashes = []
+    for name in dir(phaser.hashing):
+        try:
+            if issubclass(getattr(phaser.hashing, name), phaser.hashing._algorithms.PerceptualHash):
+                hashes.append(name)
+        except TypeError as err:
+            print(err)
+
+
+    # Get the list of transformers in the same way, except look in phaser.transformers._transforms
+    # and check for the phaser.transformers._transforms.Transformer class.
+    transformers = []
+    for name in dir(phaser.transformers):
+        try:
+            if issubclass(getattr(phaser.transformers, name), phaser.transformers._transforms.Transformer):
+                transformers.append(name)
+        except TypeError as err:
+            print(err)
+
     comparison_metrics = [name for name in dir(phaser.similarities._distances) if "_" not in name]
 
     return {"Hashes": hashes, "Transformers": transformers, "Comparison Metrics": comparison_metrics}
@@ -25,7 +43,7 @@ def do_hashing(originals_path:str, algorithms:dict, transformers:list, output_di
     IMGPATH = originals_path
     list_of_images = [str(i) for i in pathlib.Path(IMGPATH).glob('**/*')]
 
-    ch = ComputeHashes(algorithms, transformers, n_jobs=-1)
+    ch = phaser.hashing._helpers.ComputeHashes(algorithms, transformers, n_jobs=-1)
     df = ch.fit(list_of_images)
 
     
@@ -49,12 +67,13 @@ def do_hashing(originals_path:str, algorithms:dict, transformers:list, output_di
     # Dump the dataset
     print(f"{os.getcwd()=}")
     compression_opts = dict(method='bz2', compresslevel=9)
-    df.to_csv("./demo_outputs/hashes.csv.bz2", index=False, encoding='utf-8', compression=compression_opts)
+    outfile = os.path.join(output_directory, "hashes.csv.bz2")
+    df.to_csv(outfile, index=False, encoding='utf-8', compression=compression_opts)
 
 
 if __name__ == "__main__":
     nl = '\n'
-    for module_name, functions in list_modules().items():
+    for module_name, functions in list_modular_components().items():
         print( f"{module_name}:{nl}{nl.join(functions)}")
         print(nl)
 
